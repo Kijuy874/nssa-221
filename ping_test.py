@@ -11,19 +11,19 @@ def menu():
         print("5. Exit/quit the script")
 
         choice = input("Select an option (1-5): ")
-        match choice:
-            case 1:
-                os.system("ip r | awk '{print $3}'")
-            case 2:
-                print("TODO")
-            case 3:
-                print("TODO")
-            case 4:
-                print("TODO")
-            case 5:
-                exit
-            case _:
-                print("Invalid choice")
+
+        if(choice == 1):
+            os.system("ip r | awk '{print $3}'")
+        elif(choice == 2):
+            print("TODO")
+        elif(choice == 3):
+            print("TODO")
+        elif(choice == 4):
+            print("TODO")
+        elif(choice == 5):
+            print("TODO")
+        else:
+            print("Invailid choice")
 
 def main():
     menu()
