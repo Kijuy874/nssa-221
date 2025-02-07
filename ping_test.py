@@ -7,6 +7,8 @@ import os
 def menu():
     # Continually loop until user exits
     while(True):
+        print("Welcome to Ping Test!\n")
+
         # Choices
         print("1. Display the default gateway")
         print("2. Test Local Connectivity")
@@ -19,24 +21,24 @@ def menu():
 
         # Perform logic based on user input
         if(choice == "1"):
+            print("\nThe default gateway is:")
             os.system("ip r | head -1 | awk '{print $3}'")
+            print("")
         elif(choice == "2"):
-            print("TODO")
+            print("\n Pinging the default gateway")
+            os.system("ping -c 4 $(ip r | head -1 | awk '{print $3}')")
+
         elif(choice == "3"):
             print("TODO")
         elif(choice == "4"):
             print("TODO")
         elif(choice == "5"):
-            print("TODO")
+            print("Goodbye!")
+            exit
         # Prevent unintended input from executing
         else:
             print("Invailid choice")
 
-def main():
-    # Clears the terminal before displaying the menu
-    os.system("clear")
-    menu()
-
-# Good 'ol safeguarding if there was a test module
-if "__name__" == "__main__":
-    main()
+# Clears the terminal before displaying the menu
+os.system("clear")
+menu()
