@@ -43,7 +43,7 @@ def test_remote_connectivity():
 def test_dns_resolution():
     os.system("clear")
     print("\nTesting the DNS resolution for www.google.com")
-    os.system("nslookup www.google.com | awk '/NXDOMAIN' > tmp.txt")
+    os.system("nslookup www.google.com | awk '/NXDOMAIN/' > tmp.txt")
     dns_result = open("tmp.txt", "r")
 
     if(dns_result.read().strip() == ""):
