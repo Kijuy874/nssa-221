@@ -4,39 +4,54 @@
 
 import os
 
+# Retrieves the default gateway of the system
 def display_default_gateway():
     os.system("clear")
     print("\nThe default gateway is: ", end="")
     os.system("ip r | head -1 | awk '{print $3}' && sleep 3")
 
+# Pings the default gateway and notifies user if test is successful or not
 def test_local_connectivity():
     os.system("clear")
-    print("\n Pinging the default gateway")
+    print("\nPinging the default gateway")
     os.system("ping -c 4 $(ip r | head -1 | awk '{print $3}') | awk '/received/ {print $6}' > tmp.txt")
     packet_loss = open("tmp.txt", "r")
     
-    if(packet_loss.read() == "0%"):
+    if(packet_loss.read().strip() == "0%"):
         print("Please let your system administrator know the test was SUCCESSFUL")
     else:
         print("Please let your system administrator know the test has FAILED")
     
     os.system("rm tmp.txt && sleep 3")
 
+# Pings RIT's DNS Server and notifies user if test is successful or not
+# Totally following the DRY principle here :wink:
 def test_remote_connectivity():
     os.system("clear")
     print("\n Pinging remote address 129.21.3.1")
     os.system("ping -c 4 129.21.3.1 | awk '/received/ {print $6}' > tmp.txt")
     packet_loss = open("tmp.txt", "r")
     
-    if(packet_loss.read() == "0%"):
+    if(packet_loss.read().strip() == "0%"):
         print("Please let your system administrator know the test was SUCCESSFUL")
     else:
         print("Please let your system administrator know the test has FAILED")
     
     os.system("rm tmp.txt && sleep 3")
 
+
 def test_dns_resolution():
-    print("TODO")
+    os.system("clear")
+    print("\nTesting the DNS resolution for www.google.com")
+    os.system("nslookup www.google.com | awk '/NXDOMAIN' > tmp.txt")
+    dns_result = open("tmp.txt", "r")
+
+    if(dns_result.read().strip().split("")[0] == "**"):
+        print("Please let your system administrator know the test has FAILED")
+    else:
+        print("Please let your system administrator know the test was SUCCESSFUL")
+
+    os.system("rm tmp.txt && sleep 3")
 
 def menu():
     # Continually loop until user exits
@@ -68,7 +83,7 @@ def menu():
             test_dns_resolution()
 
         elif(choice == "5"):
-            print("Goodbye!")
+            print("\nGoodbye!")
             os.system("sleep 3 && clear")
             break
 
