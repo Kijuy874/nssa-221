@@ -28,8 +28,8 @@ def test_local_connectivity():
 # Totally following the DRY principle here :wink:
 def test_remote_connectivity():
     os.system("clear")
-    print("\n Pinging remote address 129.21.3.1")
-    os.system("ping -c 4 129.21.3.1 | awk '/received/ {print $6}' > tmp.txt")
+    print("\nPinging remote address 129.21.3.1")
+    os.system("ping -c 4 129.21.3.17 | awk '/received/ {print $6}' > tmp.txt")
     packet_loss = open("tmp.txt", "r")
     
     if(packet_loss.read().strip() == "0%"):
@@ -39,14 +39,14 @@ def test_remote_connectivity():
     
     os.system("rm tmp.txt && sleep 3")
 
-
+# Attempts to resolve Google to an IP and notifies user of the result
 def test_dns_resolution():
     os.system("clear")
     print("\nTesting the DNS resolution for www.google.com")
     os.system("nslookup www.google.com | awk '/NXDOMAIN' > tmp.txt")
     dns_result = open("tmp.txt", "r")
 
-    if(dns_result.read().strip().split("")[0] == "**"):
+    if(dns_result.read().strip().split("")[6] == "NXDOMAIN"):
         print("Please let your system administrator know the test has FAILED")
     else:
         print("Please let your system administrator know the test was SUCCESSFUL")
