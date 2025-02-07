@@ -10,8 +10,9 @@ def display_default_gateway():
     os.system("ip r | head -1 | awk '{print $3}' && sleep 3")
 
 def test_local_connectivity():
+    os.system("clear")
     print("\n Pinging the default gateway")
-    os.system("ping -c 4 $(ip r | head -1 | awk '{print $3}') | awk '/recieved/ {print $6}' > tmp.txt")
+    os.system("ping -c 4 $(ip r | head -1 | awk '{print $3}') | awk '/received/ {print $6}' > tmp.txt")
     packet_loss = open("tmp.txt", "r")
     
     if(packet_loss.read() == "0%"):
@@ -19,10 +20,20 @@ def test_local_connectivity():
     else:
         print("Please let your system administrator know the test has FAILED")
     
-    os.system("sleep 3")
+    os.system("rm tmp.txt && sleep 3")
 
 def test_remote_connectivity():
-    print("TODO")
+    os.system("clear")
+    print("\n Pinging remote address 129.21.3.1")
+    os.system("ping -c 4 129.21.3.1 | awk '/received/ {print $6}' > tmp.txt")
+    packet_loss = open("tmp.txt", "r")
+    
+    if(packet_loss.read() == "0%"):
+        print("Please let your system administrator know the test was SUCCESSFUL")
+    else:
+        print("Please let your system administrator know the test has FAILED")
+    
+    os.system("rm tmp.txt && sleep 3")
 
 def test_dns_resolution():
     print("TODO")
@@ -58,7 +69,7 @@ def menu():
 
         elif(choice == "5"):
             print("Goodbye!")
-            os.system("clear")
+            os.system("sleep 3 && clear")
             break
 
         # Prevent unintended input from executing
