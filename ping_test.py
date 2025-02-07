@@ -4,9 +4,33 @@
 
 import os
 
+def display_default_gateway():
+    os.system("clear")
+    print("\nThe default gateway is: ", end="")
+    os.system("ip r | head -1 | awk '{print $3}' && sleep 3")
+
+def test_local_connectivity():
+    print("\n Pinging the default gateway")
+    os.system("ping -c 4 $(ip r | head -1 | awk '/recevied/ {print $6}') > tmp.txt")
+    packet_loss = open("tmp.txt", "r")
+    
+    if(packet_loss.read() == "0%"):
+        print("Please let your system administrator know the test was SUCCESSFUL")
+    else:
+        print("Please let your system administrator know the test has FAILED")
+    
+    os.system("sleep 3")
+
+def test_remote_connectivity():
+    print("TODO")
+
+def test_dns_resolution():
+    print("TODO")
+
 def menu():
     # Continually loop until user exits
     while(True):
+        os.system("clear")
         print("Welcome to Ping Test!\n")
 
         # Choices
@@ -21,24 +45,26 @@ def menu():
 
         # Perform logic based on user input
         if(choice == "1"):
-            print("\nThe default gateway is:")
-            os.system("ip r | head -1 | awk '{print $3}'")
-            print("")
+            display_default_gateway()
+        
         elif(choice == "2"):
-            print("\n Pinging the default gateway")
-            os.system("ping -c 4 $(ip r | head -1 | awk '{print $3}')")
+            test_local_connectivity()
 
         elif(choice == "3"):
-            print("TODO")
+            test_remote_connectivity()
+
         elif(choice == "4"):
-            print("TODO")
+            test_dns_resolution()
+
         elif(choice == "5"):
             print("Goodbye!")
+            os.system("clear")
             exit
+
         # Prevent unintended input from executing
         else:
             print("Invailid choice")
+            os.system("sleep 3")
 
-# Clears the terminal before displaying the menu
-os.system("clear")
+# Program entry point
 menu()
