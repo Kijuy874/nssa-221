@@ -11,7 +11,7 @@ def display_default_gateway():
 
 def test_local_connectivity():
     print("\n Pinging the default gateway")
-    os.system("ping -c 4 $(ip r | head -1 | awk '/recevied/ {print $6}') > tmp.txt")
+    os.system("ping -c 4 $(ip r | head -1 | awk '{print $3}') | awk '/recieved/ {print $6}' > tmp.txt")
     packet_loss = open("tmp.txt", "r")
     
     if(packet_loss.read() == "0%"):
@@ -59,7 +59,7 @@ def menu():
         elif(choice == "5"):
             print("Goodbye!")
             os.system("clear")
-            exit
+            break
 
         # Prevent unintended input from executing
         else:
@@ -68,3 +68,4 @@ def menu():
 
 # Program entry point
 menu()
+exit
