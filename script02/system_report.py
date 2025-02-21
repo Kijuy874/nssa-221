@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/bin/python3.9
 
 ###
 #   Tri Tran
@@ -14,6 +14,8 @@ tabs = "\t\t\t\t\t" # Define standard tabbing across entire report
 # Identify hostname and domain
 def device_info():
     print("Device Information")
+    print("Hostname: " + tabs, end="")
+    os.system("hostname")
 
 
 # Identify IP address, gateway, network mask, primary/secondary DNS
@@ -36,6 +38,7 @@ def processor_info():
 def mem_info():
     print("TODO")
     
+# Display all specified system information into a single report
 def main():
     print("System Report - ", end="")
     os.system("date")
