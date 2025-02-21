@@ -13,7 +13,7 @@ tabs = "\t\t\t\t\t" # Define standard tabbing across entire report
 
 # Identify hostname and domain
 def device_info():
-    print("Device Information")
+    print("\nDevice Information")
 
     print("Hostname: " + tabs, end="")
     os.system("hostname -s")
@@ -44,8 +44,9 @@ def mem_info():
     
 # Display all specified system information into a single report
 def main():
+    os.system("sleep 1 && clear")
     print("System Report - ", end="")
-    os.system("date '+%B %d, %Y")
+    os.system("date '+%B %d, %Y'")
     print("\n")
 
     device_info()
