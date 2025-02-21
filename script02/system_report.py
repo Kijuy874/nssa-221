@@ -50,3 +50,5 @@ def main():
     storage_info()
     processor_info()
     mem_info()
+
+main()
