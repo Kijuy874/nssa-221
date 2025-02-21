@@ -16,10 +16,10 @@ def device_info():
     print("\nDevice Information")
 
     print("Hostname: " + tabs, end="")
-    os.system("hostname -s")
+    os.system("sleep 0.1 && hostname -s")
 
     print("Domain: " + tabs, end="")
-    os.system("domainname")
+    os.system("sleep 0.1 && domainname")
 
 
 # Identify IP address, gateway, network mask, primary/secondary DNS
@@ -44,9 +44,9 @@ def mem_info():
     
 # Display all specified system information into a single report
 def main():
-    os.system("sleep 1 && clear")
+    os.system("clear")
     print("System Report - ", end="")
-    os.system("date '+%B %d, %Y'")
+    os.system("sleep 0.1 && date '+%B %d, %Y'")
     print("\n")
 
     device_info()
