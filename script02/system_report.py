@@ -14,8 +14,8 @@ tabs = "\t\t\t\t\t" # Define standard tabbing across entire report
 # Identify hostname and domain
 def device_info():
     print("\nDevice Information")
-    os.system('echo "Hostname:{tabs}$(hostname -s)"')
-    os.system('echo "Domain:{tabs}$(domainname)"')
+    os.system(f'echo "Hostname:{tabs}$(hostname -s)"')
+    os.system(f'echo "Domain:{tabs}$(domainname)"')
 
 
 # Identify IP address, gateway, network mask, primary/secondary DNS
