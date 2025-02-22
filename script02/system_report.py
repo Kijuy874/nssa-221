@@ -22,7 +22,7 @@ def device_info():
 def network_info():
     print("\nNetwork Information")
     os.system(f'echo "IP Address:{tabs}$(hostname -I)')
-    os.system(f'echo "Gateway:{tabs}$(ip route show 0.0.0.0/0 | \'{print $3}\')"')
+    os.system(f'echo "Gateway:{tabs}$(ip route show 0.0.0.0/0 | \'{{print $3}}\')"')
 
 # Identify operating system/version and kernel version
 def os_info():
