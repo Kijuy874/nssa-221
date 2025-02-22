@@ -12,23 +12,24 @@
 import os
 import platform
 
-tabs = "\t\t\t\t" # Define standard tabbing across entire report
+tabs_2 = "\t\t"
+tabs_3 = "\t\t\t" # Define standard tabbing across entire report
 
 # Identify hostname and domain
 def device_info():
     print("\nDevice Information")
-    os.system(f'echo "Hostname:{tabs}$(hostname -s)"')
-    os.system(f'echo "Domain:{tabs}\t$(domainname)"')
+    os.system(f'echo "Hostname:{tabs_3}$(hostname -s)"')
+    os.system(f'echo "Domain:{tabs_3}\t$(domainname)"')
 
 
 # Identify IP address, gateway, network mask, primary/secondary DNS
 def network_info():
     print("\nNetwork Information")
-    os.system(f'echo "IP Address:{tabs}$(hostname -I)"')
-    os.system(f'echo "Gateway:{tabs}$(ip route show 0.0.0.0/0 | awk \'{{print $3}}\')"')
-    os.system(f'echo "Network Mask:{tabs}$(route | awk \'$2 == \"0.0.0.0\" {{print $3}}\')"')
-    os.system(f'echo "DNS1:{tabs}\t$(cat /etc/resolv.conf | awk \'$1 == \"nameserver\" {{print $2; exit}}\')"')
-    os.system(f'echo "DNS1:{tabs}\t$(cat /etc/resolv.conf | awk \'$1 == \"nameserver\" {{count++; if (count == 2) print $2}}\')"')
+    os.system(f'echo "IP Address:{tabs_3}$(hostname -I)"')
+    os.system(f'echo "Gateway:{tabs_3}$(ip route show 0.0.0.0/0 | awk \'{{print $3}}\')"')
+    os.system(f'echo "Network Mask:{tabs_3}$(route | awk \'$2 == \"0.0.0.0\" {{print $3}}\')"')
+    os.system(f'echo "DNS1:{tabs_3}{tabs_2}$(cat /etc/resolv.conf | awk \'$1 == \"nameserver\" {{print $2; exit}}\')"')
+    os.system(f'echo "DNS1:{tabs_3}{tabs_2}$(cat /etc/resolv.conf | awk \'$1 == \"nameserver\" {{count++; if (count == 2) print $2}}\')"')
 
 # Identify operating system/version and kernel version
 def os_info():
@@ -39,9 +40,9 @@ def os_info():
     os_name = ""
     with open("tmp.txt", "r") as system_details:
         for line in system_details:
-            os_name += line + " "
+            os_name += line.strip() + " "
     
-    os.system(f'echo "Operating System:{tabs}{os_name}"')
+    os.system(f'echo "Operating System:{tabs_2}{os_name}"')
 
 # Identify total drive storage, storage used/free
 def storage_info():
