@@ -9,18 +9,20 @@
 import os
 import platform
 
-tabs = "\t\t\t\t\t" # Define standard tabbing across entire report
+tabs = "\t\t\t\t" # Define standard tabbing across entire report
 
 # Identify hostname and domain
 def device_info():
     print("\nDevice Information")
     os.system(f'echo "Hostname:{tabs}$(hostname -s)"')
-    os.system(f'echo "Domain:{tabs}$(domainname)"')
+    os.system(f'echo "Domain:{tabs}\t$(domainname)"')
 
 
 # Identify IP address, gateway, network mask, primary/secondary DNS
 def network_info():
-    print("TODO")
+    print("\nNetwork Information")
+    os.system(f'echo "IP Address:{tabs}$(hostname -I)')
+    os.system(f'echo "Gateway:{tabs}' + '$(ip route show 0.0.0.0/0 | awk \'{print $3}\')"')
 
 # Identify operating system/version and kernel version
 def os_info():
