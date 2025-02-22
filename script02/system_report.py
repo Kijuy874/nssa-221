@@ -6,6 +6,9 @@
 #   Friday, February 21, 2024
 ###
 
+# Note: When using print() and os.system(), the command output was coming before print statements
+# So everything is done using echo
+
 import os
 import platform
 
@@ -24,12 +27,21 @@ def network_info():
     os.system(f'echo "IP Address:{tabs}$(hostname -I)"')
     os.system(f'echo "Gateway:{tabs}$(ip route show 0.0.0.0/0 | awk \'{{print $3}}\')"')
     os.system(f'echo "Network Mask:{tabs}$(route | awk \'$2 == \"0.0.0.0\" {{print $3}}\')"')
-    os.system(f'echo "DNS1:{tabs}$(cat /etc/resolv.conf | awk \'$1 == \"nameserver\" {{print $2; exit}}\')"')
-    os.system(f'echo "DNS1:{tabs}$(cat /etc/resolv.conf | awk \'$1 == \"nameserver\" {{count++; if (count == 2) print $2}}\')"')
+    os.system(f'echo "DNS1:{tabs}\t$(cat /etc/resolv.conf | awk \'$1 == \"nameserver\" {{print $2; exit}}\')"')
+    os.system(f'echo "DNS1:{tabs}\t$(cat /etc/resolv.conf | awk \'$1 == \"nameserver\" {{count++; if (count == 2) print $2}}\')"')
 
 # Identify operating system/version and kernel version
 def os_info():
-    print("TODO")
+    print("\nOperating System Information")
+    os.system('cat /etc/os-release | cut -d\'=\' -f2 | tr -d \'=\' | head -1 > tmp.txt')
+    os.system('cat /etc/os-release | cut -d\'=\' -f2 | tr -d \'=\' | head -2 > tmp.txt')
+
+    os_name = ""
+    with open("tmp.txt", "r") as system_details:
+        for line in system_details:
+            os_name += line + " "
+    
+    os.system(f'echo "Operating System:{tabs}{os_name}')
 
 # Identify total drive storage, storage used/free
 def storage_info():
