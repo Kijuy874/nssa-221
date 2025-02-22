@@ -3,14 +3,14 @@
 ###
 #   Tri Tran
 #   NSSA-221.03
-#   Friday, February 21, 2024
+#   Friday, February 21, 2025
 ###
 
 # Note: When using print() and os.system(), the command output was coming before print statements
 # So everything is done using echo
 
 import os
-import platform
+import sys
 
 # Define standard tabbing across entire report
 tabs_2 = "\t\t"
@@ -41,6 +41,7 @@ def os_info():
     os_name = ""
     os_version = ""
     i = 0
+    # The first five lines of os-release are NAME, VERSION, ID, ID_LIKE, VERSION_ID
     with open("tmp.txt", "r") as system_details:
         for line in system_details:
             if (i == 0 or i == 1):
@@ -65,6 +66,7 @@ def storage_info():
 # Identify CPU model, number of processors/cores
 def processor_info():
     print("\nProcessor Information")
+    # cut takes everything after the colon and xargs strips whitespace
     os.system(f'echo "CPU Model:{tabs_3}$(lscpu | grep \"Model name\" | cut -d\':\' -f2 | xargs)"')
     os.system(f'echo "Number of processors:{tabs_2}$(nproc --all)"')
     os.system(f'echo "Number of cores:{tabs_2}$(lscpu | grep \"Core(s)\" | cut -d\':\' -f2 | xargs)"')
@@ -72,6 +74,7 @@ def processor_info():
 # Identify total and available RAM
 def mem_info():
     print("\nMemory Information")
+    # After xargs, everything is crammed into a single line so $1 is total ram, $2 is kB, $3 is available ram, $4 is kB
     os.system(f'echo "Total RAM:{tabs_3}$(cat /proc/meminfo | cut -d\':\' -f2 | xargs | awk \'{{print $1, $2; exit}}\')"')
     os.system(f'echo "Available RAM:{tabs_3}$(cat /proc/meminfo | cut -d\':\' -f2 | xargs | awk \'{{print $3, $4}}\')"')
 
