@@ -53,6 +53,7 @@ def os_info():
     os.system(f'echo "Operating System:{tabs_2}{os_name}"')
     os.system(f'echo "OS Version:{tabs_3}{os_version}"')
     os.system(f'echo "Kernel Version:{tabs_3}$(uname -r)"')
+    os.system('rm tmp.txt')
 
 # Identify total drive storage, storage used/free
 def storage_info():
@@ -63,7 +64,11 @@ def storage_info():
 
 # Identify CPU model, number of processors/cores
 def processor_info():
-    print("TODO")
+    print("\nProcessor Information")
+    os.system(f'echo "CPU Model:{tabs_3}$(lscpu | grep \"Model name\" | cut -d\':\' -f2 | xargs)"')
+    os.system(f'echo "Number of processors:{tabs_2}$(nproc --all)"')
+    os.system(f'echo "Number of cores:{tabs_3}$(lscpu | grep \"Core(s)\" | cut -d\':\' -f2 | xargs)"')
+
 
 # Identify total and available RAM
 def mem_info():
