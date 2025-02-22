@@ -24,7 +24,8 @@ def network_info():
     os.system(f'echo "IP Address:{tabs}$(hostname -I)"')
     os.system(f'echo "Gateway:{tabs}$(ip route show 0.0.0.0/0 | awk \'{{print $3}}\')"')
     os.system(f'echo "Network Mask:{tabs}$(route | awk \'$2 == \"0.0.0.0\" {{print $3}}\')"')
-    os.system(f'echo "DNS1:{tabs}$(cat /etc/resolv.conf | awk \'$1 == \"nameserver\" {{print $3}}\')"')
+    os.system(f'echo "DNS1:{tabs}$(cat /etc/resolv.conf | awk \'$1 == \"nameserver\" {{print $2; exit}}\')"')
+    os.system(f'echo "DNS1:{tabs}$(cat /etc/resolv.conf | awk \'$1 == \"nameserver\" {{count++; if (count == 2) print $2}}\')"')
 
 # Identify operating system/version and kernel version
 def os_info():
