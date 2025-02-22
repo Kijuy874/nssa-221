@@ -33,15 +33,15 @@ def network_info():
 # Identify operating system/version and kernel version
 def os_info():
     print("\nOperating System Information")
-    os.system('cat /etc/os-release | cut -d\'=\' -f2 | tr -d \'=\' | head -1 > tmp.txt')
-    os.system('cat /etc/os-release | cut -d\'=\' -f2 | tr -d \'=\' | head -2 > tmp.txt')
+    os.system('cat /etc/os-release | cut -d\'=\' -f2 | tr -d \'"\' | head -1 > tmp.txt')
+    os.system('cat /etc/os-release | cut -d\'=\' -f2 | tr -d \'"\' | head -2 > tmp.txt')
 
     os_name = ""
     with open("tmp.txt", "r") as system_details:
         for line in system_details:
             os_name += line + " "
     
-    os.system(f'echo "Operating System:{tabs}{os_name}')
+    os.system(f'echo "Operating System:{tabs}{os_name}"')
 
 # Identify total drive storage, storage used/free
 def storage_info():
