@@ -14,12 +14,8 @@ tabs = "\t\t\t\t\t" # Define standard tabbing across entire report
 # Identify hostname and domain
 def device_info():
     print("\nDevice Information")
-
-    print("Hostname: " + tabs, end="")
-    os.system("sleep 0.1 && hostname -s")
-
-    print("Domain: " + tabs, end="")
-    os.system("sleep 0.1 && domainname")
+    os.system('echo "Hostname:{tabs}$(hostname -s)"')
+    os.system('echo "Domain:{tabs}$(domainname)"')
 
 
 # Identify IP address, gateway, network mask, primary/secondary DNS
@@ -44,10 +40,8 @@ def mem_info():
     
 # Display all specified system information into a single report
 def main():
-    os.system("clear")
-    print("System Report - ", end="")
-    os.system("sleep 0.1 && date '+%B %d, %Y'")
-    print("\n")
+    os.system('clear')
+    os.system('echo "System Report - $(date \'+%B %d, %Y\')"')
 
     device_info()
     network_info()
