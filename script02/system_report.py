@@ -51,11 +51,15 @@ def os_info():
             i += 1
     
     os.system(f'echo "Operating System:{tabs_2}{os_name}"')
-    os.system(f'echo "OS Version:{tabs_2}{os_version}"')
+    os.system(f'echo "OS Version:{tabs_3}{os_version}"')
+    os.system(f'echo "Kernel Version:{tabs_3}$(uname -r)"')
 
 # Identify total drive storage, storage used/free
 def storage_info():
-    print("TODO")
+    print("\nStorage Information")
+    os.system(f'echo "System Drive Total:{tabs_2}$(df -h --total | grep total | awk \'{{print $2}}\')"')
+    os.system(f'echo "System Drive Used:{tabs_2}$(df -h --total | grep total | awk \'{{print $3}}\')"')
+    os.system(f'echo "System Drive Free:{tabs_2}$(df -h --total | grep total | awk \'{{print $4}}\')"')
 
 # Identify CPU model, number of processors/cores
 def processor_info():
