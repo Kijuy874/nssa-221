@@ -72,8 +72,8 @@ def processor_info():
 # Identify total and available RAM
 def mem_info():
     print("\nMemory Information")
-    os.system(f'echo "Total RAM:{tabs_3}$(cat /proc/meminfo | cut -d\':\' -f2 | xargs | awk \'{{print $1, $2; exit}})\'"')
-    os.system(f'echo "Available RAM:{tabs_3}$(cat /proc/meminfo | cut -d\':\' -f2 | xargs | awk \'{{count++; if (count == 2) print $1, $2}})\'"')
+    os.system(f'echo "Total RAM:{tabs_3}$(cat /proc/meminfo | cut -d\':\' -f2 | xargs | awk \'{{print $1, $2; exit}}\')"')
+    os.system(f'echo "Available RAM:{tabs_3}$(cat /proc/meminfo | cut -d\':\' -f2 | xargs | awk \'{{print $3, $4}}\')"')
 
 # Display all specified system information into a single report
 def main():
