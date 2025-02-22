@@ -23,7 +23,7 @@ def network_info():
     print("\nNetwork Information")
     os.system(f'echo "IP Address:{tabs}$(hostname -I)')
     os.system(f'echo "Gateway:{tabs}$(ip route show 0.0.0.0/0 | awk \'{{print $3}}\')"')
-    os.system(f'echo "Network Mask:{tabs}$(route | grep $(ip route show 0.0.0.0/0 | awk \'{{print $3}}\') | awk \'{{print $3}}\')"')
+    os.system(f'echo "Network Mask:{tabs}$(route | awk \'$2 == \"0.0.0.0\" {{print $3}}\')"')
 
 
 # Identify operating system/version and kernel version
