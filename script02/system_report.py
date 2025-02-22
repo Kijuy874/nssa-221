@@ -67,13 +67,14 @@ def processor_info():
     print("\nProcessor Information")
     os.system(f'echo "CPU Model:{tabs_3}$(lscpu | grep \"Model name\" | cut -d\':\' -f2 | xargs)"')
     os.system(f'echo "Number of processors:{tabs_2}$(nproc --all)"')
-    os.system(f'echo "Number of cores:{tabs_3}$(lscpu | grep \"Core(s)\" | cut -d\':\' -f2 | xargs)"')
-
+    os.system(f'echo "Number of cores:{tabs_2}$(lscpu | grep \"Core(s)\" | cut -d\':\' -f2 | xargs)"')
 
 # Identify total and available RAM
 def mem_info():
-    print("TODO")
-    
+    print("\nMemory Information")
+    os.system(f'echo "Total RAM:{tabs_3}$(cat /proc/meminfo | cut -d\':\' -f2 | xargs | awk \'{{print $1, $2; exit}})\'"')
+    os.system(f'echo "Available RAM:{tabs_3}$(cat /proc/meminfo | cut -d\':\' -f2 | xargs | awk \'{{count++; if (count == 2) print $1, $2}})\'"')
+
 # Display all specified system information into a single report
 def main():
     os.system('clear')
