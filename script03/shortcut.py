@@ -16,8 +16,9 @@ def create_link():
             os.system("sleep 3")
             valid = False
 
-        else:
+        if(valid):
             print("The following files were found:\n")
+            os.system("sleep 1")
             
             index = 1
             for line in found:
@@ -32,18 +33,21 @@ def create_link():
 
         while(not exit_link):
             link_choice = input("Enter the file you would like to make a symbolic link for: ")
-            print("Creating link... please wait")
 
             if(link_choice.isdigit()):
                 test = files_dict.get(int(link_choice)).strip()
-                
+
                 if(test is not None):
+                    print("Creating link... please wait")
                     os.system(f'ln -s {test} ~/Desktop')
                     print("Link sucessfully created! Returning to menu...")
                     exit_link = True
                 
                 else:
                     print("Invalid choice!\n")
+            
+            else:
+                print("Invalid choice!")
 
 def delete_link():
     print("TODO")
