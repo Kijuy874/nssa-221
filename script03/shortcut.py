@@ -1,4 +1,4 @@
-#!bin/python3.9
+#!/bin/python3.9
 
 import os
 
@@ -11,11 +11,41 @@ def delete_link():
 def link_report():
     print("TODO")
 
-def main():
+def menu():
     os.system("clear")
+    print("You are currently at: ", end="")
+    os.system("pwd")
 
-    create_link()
-    delete_link()
-    link_report()
+    exit = False
 
-main()
+    while(not exit):
+        os.system("clear")
+
+        print(" \
+              [1] Create a symbolic link\n \
+              [2] Delete a symbolic link\n \
+              [3] Generate a symbolic link report\n \
+              [4] Quit\n")
+        
+        choice = input("Select an option: ", end="")
+
+        # Perform logic based on user input
+        if(choice == "1"):
+            create_link()
+        
+        elif(choice == "2"):
+            delete_link()
+
+        elif(choice == "3"):
+            link_report()
+
+        elif(choice == "4"):
+            print("\nGoodbye!")
+            os.system("sleep 3 && clear")
+            exit = True
+
+        else:
+            print("Invalid choice!")
+            os.system("sleep 3")
+
+menu()
