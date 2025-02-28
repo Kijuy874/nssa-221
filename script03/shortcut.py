@@ -12,7 +12,9 @@ def create_link():
     index = 1
 
     with(open("tmp.txt", "r")) as found:
-        if(not found.readlines()):
+        lines = found.readlines()
+
+        if(not lines):
             print("No files were found with that name! Returning to menu...")
             os.system("sleep 3")
             valid = False
@@ -20,7 +22,7 @@ def create_link():
         else:
             print("The following files were found:\n")
             
-            for line in found:
+            for line in lines:
                 print(f'[{index}] {line}')
                 files_dict.update({index: line})
                 index += 1
@@ -59,14 +61,16 @@ def link_report():
     index = 1
 
     with(open("tmp.txt", "r")) as current_links:
-        if(not current_links.readlines()):
+        lines = current_links.readlines()
+
+        if(not lines):
             print("No current links are active! Returning to menu...")
             os.system("sleep 3")
         
         else:
             print("The following links were found:\n")
 
-            for line in current_links:
+            for line in lines:
                 print(f'[{index}] {line}')
                 links_dict.update({index: line})
                 index += 1
