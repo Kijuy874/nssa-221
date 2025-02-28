@@ -41,14 +41,14 @@ def create_link():
                 if(test is not None):
                     print("Creating link... please wait")
                     os.system(f'ln -s {test.strip()} ~/Desktop')
-                    print("Link sucessfully created! Returning to menu...")
+                    os.system('echo "Link sucessfully created! Returning to menu..." && sleep 3')
                     exit_link = True
                 
                 else:
                     print("Invalid choice!\n")
             
             else:
-                print("Invalid choice!")
+                print("Invalid choice!\n")
 
 def delete_link():
     os.system("clear")
@@ -56,10 +56,38 @@ def delete_link():
     os.system(f'ls -la ~/Desktop | grep "{link} \->" > tmp.txt')
 
     with(open("tmp.txt", "r")) as links:
-        if(links.readlines()):
-            print("Removing the link...")
-            os.system(f'rm $HOME/Desktop/{link}')
-            os.system('echo "Link removed! Returning to menu..." && sleep 3')
+        lines = links.readlines()
+
+        delete_dict = dict()
+        index = 1
+
+        if(lines):
+            print("The following links were found:")
+
+            for line in lines:
+                print(f'[{index}] {line}')
+                delete_dict.update({index: line})
+                index += 1
+        
+        exit_link = False
+
+        while(not exit_link):
+            link_choice = input("Enter the link you would like to delete: ")
+
+            if(link_choice.isdigit()):
+                test = delete_dict.get(int(link_choice))
+
+                if(test is not None):
+                    print("Deleting link... please wait")
+                    os.system(f'rm ~/Desktop/{link}')
+                    os.system('echo "Link sucessfully deleted! Returning to menu..." && sleep 3')
+                    exit_link = True
+                
+                else:
+                    print("Invalid choice!\n")
+            
+            else:
+                print("Invalid choice!\n")
 
         else:
             os.system('echo "The specified link does not exist! Returning to menu..." && sleep 3')
