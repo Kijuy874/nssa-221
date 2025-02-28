@@ -28,9 +28,10 @@ def create_link():
     if(valid):
         link_choice = input("Enter the file you would like to make a symbolic link for: ")
         print("Creating link... please wait")
-        os.system('ln -s ' + str(files_dict.get(link_choice).strip()) + ' ~/Desktop')
-        
-        print("Link sucessfully created! Returning to menu...")
+
+        if(link_choice in files_dict.keys):
+            os.system('ln -s ' + str(files_dict.get(str(link_choice))).strip() + ' ~/Desktop')
+            print("Link sucessfully created! Returning to menu...")
 
 def delete_link():
     print("TODO")
