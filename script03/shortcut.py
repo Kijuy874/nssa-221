@@ -34,15 +34,16 @@ def create_link():
             link_choice = input("Enter the file you would like to make a symbolic link for: ")
             print("Creating link... please wait")
 
-            test = files_dict.get(int(link_choice)).strip()
-
-            if(test is not None):
-                os.system(f'ln -s {test} ~/Desktop')
-                print("Link sucessfully created! Returning to menu...")
-                exit_link = True
-            
-            else:
-                print("Invalid choice!\n")
+            if(link_choice.isdigit()):
+                test = files_dict.get(int(link_choice)).strip()
+                
+                if(test is not None):
+                    os.system(f'ln -s {test} ~/Desktop')
+                    print("Link sucessfully created! Returning to menu...")
+                    exit_link = True
+                
+                else:
+                    print("Invalid choice!\n")
 
 def delete_link():
     print("TODO")
