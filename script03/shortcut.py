@@ -5,7 +5,15 @@ import os
 def create_link():
     os.system('clear')
     file = input("Enter the file name you would like to create a link for: ")
-    os.system('find / -type f -name "' + file +'" 2>/dev/null')
+    os.system('find / -type f -name "' + file +'" 2>/dev/null > tmp.txt')
+
+    print("The following files were found:")
+    with(open("tmp.txt", "r")) as found:
+        index = 1
+        for line in found:
+            print("[" + str(index) + "] " + line)
+
+    os.system("rm tmp.txt")
 
 def delete_link():
     print("TODO")
@@ -15,13 +23,13 @@ def link_report():
 
 def menu():
     os.system("clear")
+    os.system('echo "Welcome to the Symbolic Link Shortcut!"')
     os.system('echo "You are currently at: $(pwd)"')
 
     exit = False
 
     while(not exit):
         os.system("clear")
-        print("Welcome to the Symbolic Link Shortcut!\n")
 
         print(" \
               [1] Create a symbolic link\n \
