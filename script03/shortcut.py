@@ -14,12 +14,12 @@ def create_link():
     with(open("tmp.txt", "r")) as found:
         index = 1
         for line in found:
-            if(line == ""):
+            if(index == 1 and not line.strip()):
                 print("No files were found with that name! Returning to menu...")
                 valid = False
                 break
             else:
-                print("[" + str(index) + "] " + line)
+                print(f"[{index}] {line}")
                 files_dict.update({index: line})
                 index += 1
 
@@ -30,7 +30,7 @@ def create_link():
         print("Creating link... please wait")
 
         if(link_choice in files_dict.keys):
-            os.system('ln -s ' + str(files_dict.get(str(link_choice))).strip() + ' ~/Desktop')
+            os.system(f'ln -s {str(files_dict.get(str(link_choice))).strip()} ~/Desktop')
             print("Link sucessfully created! Returning to menu...")
 
 def delete_link():
