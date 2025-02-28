@@ -36,11 +36,11 @@ def create_link():
             link_choice = input("Enter the file you would like to make a symbolic link for: ")
 
             if(link_choice.isdigit()):
-                test = files_dict.get(int(link_choice)).strip()
+                test = files_dict.get(int(link_choice))
 
                 if(test is not None):
                     print("Creating link... please wait")
-                    os.system(f'ln -s {test} ~/Desktop')
+                    os.system(f'ln -s {test.strip()} ~/Desktop')
                     print("Link sucessfully created! Returning to menu...")
                     exit_link = True
                 
@@ -51,7 +51,18 @@ def create_link():
                 print("Invalid choice!")
 
 def delete_link():
-    print("TODO")
+    os.system("clear")
+    link = input("Enter the symbolic link you would like to remove: ")
+    os.system(f'ls -la ~/Desktop | grep "{link} \->" > tmp.txt')
+
+    with(open("tmp.txt", "r")) as links:
+        if(links.readlines()):
+            print("Removing the link...")
+            os.system(f'rm $HOME/Desktop/{link}')
+            print("Link removed! Returning to menu...")
+
+        else:
+            print("The specified link does not exist! Returning to menu...")
 
 def link_report():
     os.system('clear && echo "Current active symbolic links on Desktop:\n"')
@@ -68,14 +79,22 @@ def link_report():
             os.system("sleep 3")
         
         else:
-            print("The following links were found:\n")
+            print(len(lines) + " links were found:\n")
 
             for line in lines:
                 print(f'[{index}] {line}')
                 links_dict.update({index: line})
                 index += 1
+        
+    os.system("rm tmp.txt")
 
-    input("Press Enter to return to the menu!")
+    return_choice = input("Press d to delete a link or any other key to return to the menu!")
+
+    if(return_choice == "d"):
+        delete_link()
+    
+    else:
+        print("Returning to menu...")
 
 def menu():
     exit = False
