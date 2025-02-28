@@ -3,7 +3,9 @@
 import os
 
 def create_link():
-    print("TODO")
+    os.system('clear')
+    file = input("Enter the file name you would like to create a link for: ")
+    os.system('find / -type f -name "' + file +'" 2>/dev/null')
 
 def delete_link():
     print("TODO")
@@ -13,13 +15,13 @@ def link_report():
 
 def menu():
     os.system("clear")
-    print("You are currently at: ", end="")
-    os.system("pwd")
+    os.system('echo "You are currently at: $(pwd)"')
 
     exit = False
 
     while(not exit):
         os.system("clear")
+        print("Welcome to the Symbolic Link Shortcut!\n")
 
         print(" \
               [1] Create a symbolic link\n \
@@ -27,7 +29,7 @@ def menu():
               [3] Generate a symbolic link report\n \
               [4] Quit\n")
         
-        choice = input("Select an option: ", end="")
+        choice = input("Select an option: ")
 
         # Perform logic based on user input
         if(choice == "1"):
