@@ -52,8 +52,8 @@ def delete_link():
     print("TODO")
 
 def link_report():
-    print("Current active symbolic links on Desktop:\n")
-    os.system('ls -la ~/Desktop | grep "\->" | awk \'{print $9}\' > tmp.txt')
+    os.system('clear && echo "Current active symbolic links on Desktop:\n"')
+    os.system('sleep 1 && ls -la ~/Desktop | grep "\->" | awk \'{print $9}\' > tmp.txt')
 
     links_dict = dict()
     valid = True
