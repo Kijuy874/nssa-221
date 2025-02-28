@@ -79,7 +79,7 @@ def link_report():
             os.system("sleep 3")
         
         else:
-            print(len(lines) + " links were found:\n")
+            print(str(len(lines)) + " links were found:\n")
 
             for line in lines:
                 print(f'[{index}] {line}')
