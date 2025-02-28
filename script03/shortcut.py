@@ -59,10 +59,10 @@ def delete_link():
         if(links.readlines()):
             print("Removing the link...")
             os.system(f'rm $HOME/Desktop/{link}')
-            print("Link removed! Returning to menu...")
+            os.system('echo "Link removed! Returning to menu..." && sleep 3')
 
         else:
-            print("The specified link does not exist! Returning to menu...")
+            os.system('echo "The specified link does not exist! Returning to menu..." && sleep 3')
 
 def link_report():
     os.system('clear && echo "Current active symbolic links on Desktop:\n"')
@@ -94,7 +94,7 @@ def link_report():
         delete_link()
     
     else:
-        print("Returning to menu...")
+        os.system('echo "Returning to menu..." && sleep 3')
 
 def menu():
     exit = False
