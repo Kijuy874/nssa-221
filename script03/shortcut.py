@@ -114,16 +114,16 @@ def link_report():
                 print(f'[{index}] {line}')
                 links_dict.update({index: line})
                 index += 1
+
+                return_choice = input("Press d to delete a link or any other key to return to the menu!")
+
+                if(return_choice == "d"):
+                    delete_link()
+    
+                else:
+                    os.system('echo "Returning to menu..." && sleep 3')
         
     os.system("rm tmp.txt")
-
-    return_choice = input("Press d to delete a link or any other key to return to the menu!")
-
-    if(return_choice == "d"):
-        delete_link()
-    
-    else:
-        os.system('echo "Returning to menu..." && sleep 3')
 
 def menu():
     exit = False
