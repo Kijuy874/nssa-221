@@ -7,13 +7,28 @@ def create_link():
     file = input("Enter the file name you would like to create a link for: ")
     os.system('find / -type f -name "' + file +'" 2>/dev/null > tmp.txt')
 
+    files_dict = dict()
+    valid = True
+
     print("The following files were found:")
     with(open("tmp.txt", "r")) as found:
         index = 1
         for line in found:
+            if(line == ""):
+                print("No files were found with that name! Returning to menu...")
+                valid = False
+                break
             print("[" + str(index) + "] " + line)
+            files_dict.update({index: line})
 
     os.system("rm tmp.txt")
+
+    if(valid):
+        link_choice = input("Enter the file you would like to make a symbolic link for: ")
+        print("Creating link... please wait")
+        os.system('ln -s ' + files_dict.get(link_choice) + ' ~/Desktop')
+        
+        print("Link sucessfully created! Returning to menu...")
 
 def delete_link():
     print("TODO")
@@ -24,13 +39,11 @@ def link_report():
 def menu():
     os.system("clear")
     os.system('echo "Welcome to the Symbolic Link Shortcut!"')
-    os.system('echo "You are currently at: $(pwd)"')
+    os.system('echo "You are currently at: $(pwd)" && echo ""')
 
     exit = False
 
     while(not exit):
-        os.system("clear")
-
         print(" \
               [1] Create a symbolic link\n \
               [2] Delete a symbolic link\n \
@@ -51,11 +64,13 @@ def menu():
 
         elif(choice == "4"):
             print("\nGoodbye!")
-            os.system("sleep 3 && clear")
+            os.system("sleep 3")
             exit = True
 
         else:
             print("Invalid choice!")
             os.system("sleep 3")
+    
+    os.system("clear")
 
 menu()
