@@ -12,16 +12,15 @@ def create_link():
 
     print("The following files were found:\n")
     with(open("tmp.txt", "r")) as found:
+        if(not found.readlines()):
+            print("No files were found with that name! Returning to menu...")
+            valid = False
+
         index = 1
         for line in found:
-            if(index == 1 and not line.strip()):
-                print("No files were found with that name! Returning to menu...")
-                valid = False
-                break
-            else:
-                print(f"[{index}] {line}")
-                files_dict.update({index: line})
-                index += 1
+            print(f"[{index}] {line}")
+            files_dict.update({index: line})
+            index += 1
 
     os.system("rm tmp.txt")
 
@@ -29,7 +28,7 @@ def create_link():
         link_choice = input("Enter the file you would like to make a symbolic link for: ")
         print("Creating link... please wait")
 
-        if(link_choice in files_dict.keys):
+        if(files_dict.get(link_choice) is not None):
             os.system(f'ln -s {str(files_dict.get(str(link_choice))).strip()} ~/Desktop')
             print("Link sucessfully created! Returning to menu...")
 
