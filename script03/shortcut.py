@@ -9,6 +9,7 @@ def create_link():
 
     files_dict = dict()
     valid = True
+    index = 1
 
     with(open("tmp.txt", "r")) as found:
         if(not found.readlines()):
@@ -16,13 +17,11 @@ def create_link():
             os.system("sleep 3")
             valid = False
 
-        if(valid):
+        else:
             print("The following files were found:\n")
-            os.system("sleep 1")
             
-            index = 1
             for line in found:
-                print(f"[{index}] {line}")
+                print(f'[{index}] {line}')
                 files_dict.update({index: line})
                 index += 1
 
@@ -53,7 +52,29 @@ def delete_link():
     print("TODO")
 
 def link_report():
-    print("TODO")
+    print("Current active symbolic links on Desktop:\n")
+    os.system('ls -la ~/Desktop | grep "\->" | awk \'{print $9}\' > tmp.txt')
+
+    links_dict = dict()
+    valid = True
+    index = 1
+
+    with(open("tmp.txt", "r")) as current_links:
+        if(not current_links.readlines()):
+            print("No current links are active! Returning to menu...")
+            os.system("sleep 3")
+            valid = False
+        
+        else:
+            print("The following links were found:\n")
+
+            for line in current_links:
+                print(f'[{index}] {line}')
+                links_dict.update({index: line})
+                index += 1
+
+    if(valid):
+        print("TODO")
 
 def menu():
     exit = False
@@ -81,7 +102,7 @@ def menu():
         elif(choice == "3"):
             link_report()
 
-        elif(choice == "4"):
+        elif(choice == "4" or choice == "exit" or choice == "quit"):
             print("\nGoodbye!")
             os.system("sleep 3")
             exit = True
