@@ -1,16 +1,26 @@
 #!/bin/python3.9
 
+###
+#   Tri Tran
+#   NSSA-221.03
+#   Friday, February 28, 2025
+###
+
 import os
 
+# Creates symbolic links based on user input
 def create_link():
     os.system('clear')
     file = input("Enter the file name you would like to create a link for: ")
+
+    # Find the requested file in the system, and ignore all errors
     os.system('find / -type f -name "' + file +'" 2>/dev/null > tmp.txt')
 
     files_dict = dict()
     valid = True
     index = 1
 
+    # List all files that match user input in a parsed format
     with(open("tmp.txt", "r")) as found:
         lines = found.readlines()
 
@@ -22,6 +32,7 @@ def create_link():
         else:
             print("The following files were found:\n")
             
+            # Add files to a dictionary to access it later
             for line in lines:
                 print(f'[{index}] {line}')
                 files_dict.update({index: line})
@@ -29,6 +40,7 @@ def create_link():
 
     os.system("rm tmp.txt")
 
+    # Handle user input to select a file to make a link for
     if(valid):
         exit_link = False
 
@@ -40,7 +52,7 @@ def create_link():
 
                 if(test is not None):
                     print("Creating link... please wait")
-                    os.system(f'ln -s {test.strip()} ~/Desktop')
+                    os.system(f'ln -s {test.strip()} $HOME/Desktop')
                     os.system('echo "Link sucessfully created! Returning to menu..." && sleep 3')
                     exit_link = True
                 
@@ -50,10 +62,13 @@ def create_link():
             else:
                 print("Invalid choice!\n")
 
+# Delete a symbolic link based on user input
 def delete_link():
     os.system("clear")
     link = input("Enter the symbolic link you would like to remove: ")
-    os.system(f'ls -la ~/Desktop | grep "{link} \->" | cut -d\':\' -f2 | cut -d\' \' -f2- > tmp.txt')
+
+    # Search the Desktop directory for symlinks, cut after the timestamp, then cut to just get file
+    os.system(f'ls -la $HOME/Desktop | grep "{link} \->" | cut -d\':\' -f2 | cut -d\' \' -f2- > tmp.txt')
 
     with(open("tmp.txt", "r")) as links:
         lines = links.readlines()
@@ -61,9 +76,11 @@ def delete_link():
         delete_dict = dict()
         index = 1
 
+        # List all symlinks in a parsed format
         if(lines):
             print("The following links were found:")
 
+            # Add files to dictionary to access later
             for line in lines:
                 print(f'[{index}] {line}')
                 delete_dict.update({index: line})
@@ -80,7 +97,7 @@ def delete_link():
 
                     if(test is not None):
                         print("Deleting link... please wait")
-                        os.system(f'rm ~/Desktop/{link}')
+                        os.system(f'rm $HOME/Desktop/{link}')
                         os.system('echo "Link sucessfully deleted! Returning to menu..." && sleep 3')
                         exit_link = True
                     
@@ -93,13 +110,15 @@ def delete_link():
         else:
             os.system('echo "The specified link does not exist! Returning to menu..." && sleep 3')
 
+# List all symlinks on the Desktop
 def link_report():
     os.system('clear && echo "Current active symbolic links on Desktop:\n"')
-    os.system('sleep 1 && ls -la ~/Desktop | grep "\->" | awk \'{print $9}\' > tmp.txt')
+    os.system('sleep 1 && ls -la $HOME/Desktop | grep "\->" | awk \'{print $9}\' > tmp.txt')
 
     links_dict = dict()
     index = 1
 
+    # List all symlinks in a parsed format
     with(open("tmp.txt", "r")) as current_links:
         lines = current_links.readlines()
 
@@ -110,6 +129,7 @@ def link_report():
         else:
             print(str(len(lines)) + " links were found:\n")
 
+            # Store files in a dictionary to access later
             for line in lines:
                 print(f'[{index}] {line}')
                 links_dict.update({index: line})
@@ -125,6 +145,7 @@ def link_report():
         
     os.system("rm tmp.txt")
 
+# Display choices for user
 def menu():
     exit = False
 
@@ -160,4 +181,5 @@ def menu():
             print("Invalid choice!")
             os.system("sleep 3 && clear")
 
+# Program entry point
 menu()
