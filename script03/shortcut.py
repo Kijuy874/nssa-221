@@ -28,7 +28,7 @@ def create_link():
     if(valid):
         link_choice = input("Enter the file you would like to make a symbolic link for: ")
         print("Creating link... please wait")
-        os.system('ln -s ' + str(files_dict.get(link_choice)) + ' ~/Desktop')
+        os.system('ln -s ' + str(files_dict.get(link_choice).strip()) + ' ~/Desktop')
         
         print("Link sucessfully created! Returning to menu...")
 
@@ -39,13 +39,13 @@ def link_report():
     print("TODO")
 
 def menu():
-    os.system("clear")
-    os.system('echo "Welcome to the Symbolic Link Shortcut!"')
-    os.system('echo "You are currently at: $(pwd)" && echo ""')
-
     exit = False
 
     while(not exit):
+        os.system("clear")
+        os.system('echo "Welcome to the Symbolic Link Shortcut!"')
+        os.system('echo "You are currently at: $(pwd)" && echo ""')
+        
         print(" \
               [1] Create a symbolic link\n \
               [2] Delete a symbolic link\n \
@@ -72,7 +72,5 @@ def menu():
         else:
             print("Invalid choice!")
             os.system("sleep 3")
-    
-    os.system("clear")
 
 menu()
