@@ -53,7 +53,7 @@ def create_link():
 def delete_link():
     os.system("clear")
     link = input("Enter the symbolic link you would like to remove: ")
-    os.system(f'ls -la ~/Desktop | grep "{link} \->" > tmp.txt')
+    os.system(f'ls -la ~/Desktop | grep "{link} \->" | cut -d\':\' -f2 | cut -d\' \' -f2- > tmp.txt')
 
     with(open("tmp.txt", "r")) as links:
         lines = links.readlines()
@@ -69,25 +69,26 @@ def delete_link():
                 delete_dict.update({index: line})
                 index += 1
         
-        exit_link = False
+            os.system("rm tmp.txt")
+            exit_link = False
 
-        while(not exit_link):
-            link_choice = input("Enter the link you would like to delete: ")
+            while(not exit_link):
+                link_choice = input("Enter the link you would like to delete: ")
 
-            if(link_choice.isdigit()):
-                test = delete_dict.get(int(link_choice))
+                if(link_choice.isdigit()):
+                    test = delete_dict.get(int(link_choice))
 
-                if(test is not None):
-                    print("Deleting link... please wait")
-                    os.system(f'rm ~/Desktop/{link}')
-                    os.system('echo "Link sucessfully deleted! Returning to menu..." && sleep 3')
-                    exit_link = True
+                    if(test is not None):
+                        print("Deleting link... please wait")
+                        os.system(f'rm ~/Desktop/{link}')
+                        os.system('echo "Link sucessfully deleted! Returning to menu..." && sleep 3')
+                        exit_link = True
+                    
+                    else:
+                        print("Invalid choice!\n")
                 
                 else:
                     print("Invalid choice!\n")
-            
-            else:
-                print("Invalid choice!\n")
 
         else:
             os.system('echo "The specified link does not exist! Returning to menu..." && sleep 3')
