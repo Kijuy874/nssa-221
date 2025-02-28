@@ -56,14 +56,12 @@ def link_report():
     os.system('sleep 1 && ls -la ~/Desktop | grep "\->" | awk \'{print $9}\' > tmp.txt')
 
     links_dict = dict()
-    valid = True
     index = 1
 
     with(open("tmp.txt", "r")) as current_links:
         if(not current_links.readlines()):
             print("No current links are active! Returning to menu...")
             os.system("sleep 3")
-            valid = False
         
         else:
             print("The following links were found:\n")
@@ -73,8 +71,7 @@ def link_report():
                 links_dict.update({index: line})
                 index += 1
 
-    if(valid):
-        print("TODO")
+    input("Press Enter to return to the menu!")
 
 def menu():
     exit = False
