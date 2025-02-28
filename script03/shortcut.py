@@ -10,27 +10,39 @@ def create_link():
     files_dict = dict()
     valid = True
 
-    print("The following files were found:\n")
     with(open("tmp.txt", "r")) as found:
         if(not found.readlines()):
             print("No files were found with that name! Returning to menu...")
+            os.system("sleep 3")
             valid = False
 
-        index = 1
-        for line in found:
-            print(f"[{index}] {line}")
-            files_dict.update({index: line})
-            index += 1
+        else:
+            print("The following files were found:\n")
+            
+            index = 1
+            for line in found:
+                print(f"[{index}] {line}")
+                files_dict.update({index: line})
+                index += 1
 
     os.system("rm tmp.txt")
 
     if(valid):
-        link_choice = input("Enter the file you would like to make a symbolic link for: ")
-        print("Creating link... please wait")
+        exit_link = False
 
-        if(files_dict.get(link_choice) is not None):
-            os.system(f'ln -s {str(files_dict.get(str(link_choice))).strip()} ~/Desktop')
-            print("Link sucessfully created! Returning to menu...")
+        while(not exit_link):
+            link_choice = input("Enter the file you would like to make a symbolic link for: ")
+            print("Creating link... please wait")
+
+            test = files_dict.get(int(link_choice)).strip()
+
+            if(test is not None):
+                os.system(f'ln -s {test} ~/Desktop')
+                print("Link sucessfully created! Returning to menu...")
+                exit_link = True
+            
+            else:
+                print("Invalid choice!\n")
 
 def delete_link():
     print("TODO")
@@ -71,6 +83,6 @@ def menu():
 
         else:
             print("Invalid choice!")
-            os.system("sleep 3")
+            os.system("sleep 3 && clear")
 
 menu()
